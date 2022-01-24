@@ -1,6 +1,10 @@
-import 'package:bitirme_odev/cubit/food_details_cubit.dart';
+
+import 'package:bitirme_odev/cubit/order_cubits/food_details_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 
 class FoodDetails extends StatefulWidget {
   String yemek_resim_adi;
@@ -15,8 +19,7 @@ class FoodDetails extends StatefulWidget {
 }
 
 class _FoodDetailsState extends State<FoodDetails> {
-
-  var tfNote = TextEditingController();
+  String kayitDegeri = "ozan_takir-${FirebaseAuth.instance.currentUser?.email}";
   var siparisAdet = 1;
 
   @override
@@ -47,25 +50,9 @@ class _FoodDetailsState extends State<FoodDetails> {
                 "http://kasimadalan.pe.hu/yemekler/resimler/${widget
                     .yemek_resim_adi}")),
         Padding(
-          padding: const EdgeInsets.only(top: 10.0,bottom: 20),
+          padding: const EdgeInsets.only(top: 10.0,bottom: 10),
           child: Text("${widget.name}",
               style: TextStyle(fontSize: 20, color: Colors.black)),
-        ),
-        TextField(
-          controller: tfNote,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            hintText: "Sipariş notunuzu girebilirsiniz..",
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 2, color: Colors.grey),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  width: 2, color: Colors.deepOrange),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +77,7 @@ class _FoodDetailsState extends State<FoodDetails> {
         ElevatedButton(onPressed: () {
           context.read<FoodDetailsCubit>().sepetEkle(
               widget.name, widget.yemek_resim_adi, widget.price,
-              siparisAdet.toString(), "ozan_takir");
+              siparisAdet.toString(), kayitDegeri);
           Navigator.pop(context);
         }, child: Row(
           mainAxisSize: MainAxisSize.min,

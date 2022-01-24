@@ -1,4 +1,5 @@
-import 'package:bitirme_odev/cubit/signup_page_cubit.dart';
+import 'package:bitirme_odev/cubit/intro_cubits/signup_page_cubit.dart';
+import 'package:bitirme_odev/cubit/order_cubits/basket_screen_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,11 +116,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               ElevatedButton(onPressed: (){
-                context.read<SignupPageCubit>().register(tfName.text);
+                context.read<SignupPageCubit>().register(tfName.text,tfEmail.text);
                 context.read<SignupPageCubit>().signUp(tfEmail.text, tfPassword.text,context);
-                // if(FirebaseAuth.instance.currentUser != null){
-                //   Navigator.pop(context);
-                // }
               }, child: Text("Sign-up"),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.deepOrange,

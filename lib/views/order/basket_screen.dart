@@ -1,5 +1,6 @@
-import 'package:bitirme_odev/cubit/basket_screen_cubit.dart';
+import 'package:bitirme_odev/cubit/order_cubits/basket_screen_cubit.dart';
 import 'package:bitirme_odev/entity/sepetteki_yemekler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,14 +14,13 @@ class BasketScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<BasketScreen> {
-  var tfPrice = TextEditingController();
+  String kayitDegeri = "ozan_takir-${FirebaseAuth.instance.currentUser?.email}";
 
   @override
   void initState() {
     super.initState();
-    context.read<BasketScreenCubit>().sepetiYukle("ozan_takir");
+    context.read<BasketScreenCubit>().sepetiYukle(kayitDegeri);
   }
-
   @override
   Widget build(BuildContext context) {
     var totalPrice = 0;
@@ -30,22 +30,16 @@ class _MainScreenState extends State<BasketScreen> {
              backgroundColor: Colors.red,
              title: Text("Sepetim"),
            ),
-           body: sepettekiYemeklerListesi.isNotEmpty ? ListView.builder(
+           body: sepettekiYemeklerListesi.isNotEmpty ?  ListView.builder(
                itemCount: sepettekiYemeklerListesi.length,
                itemBuilder: (context,index){
                  var sepettekiYemek = sepettekiYemeklerListesi[index];
                  return Card(
-                   shape: RoundedRectangleBorder(
-                       borderRadius: BorderRadius.circular(30),
-                       side: BorderSide(width: 2,color: Colors.black)
-                   ),
+                   elevation: 5,
                    child: Padding(
                      padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10,bottom: 10),
                      child: Row(
                        children: [
-                         SizedBox(
-                             height: 100,
-                             child: Image.network("http://kasimadalan.pe.hu/yemekler/resimler/${sepettekiYemek.yemek_resim_adi}")),
                          Padding(
                            padding: const EdgeInsets.only(left: 20.0),
                            child: Column(
@@ -67,16 +61,16 @@ class _MainScreenState extends State<BasketScreen> {
                                  label: "Evet",
                                  onPressed: (){
                                    if(sepettekiYemeklerListesi.length > 1){
-                                     context.read<BasketScreenCubit>().yemekSil(int.parse(sepettekiYemek.sepet_yemek_id), "ozan_takir");
+                                     context.read<BasketScreenCubit>().yemekSil(int.parse(sepettekiYemek.sepet_yemek_id), kayitDegeri);
                                    } else {
-                                     context.read<BasketScreenCubit>().yemekSil(int.parse(sepettekiYemek.sepet_yemek_id), "ozan_takir");
+                                     context.read<BasketScreenCubit>().yemekSil(int.parse(sepettekiYemek.sepet_yemek_id), kayitDegeri);
                                      context.read<BasketScreenCubit>().bosSepetYukle();
                                    }
                                  },
                                ),
                              ),
                            );
-                         }, icon: Icon(Icons.delete_outline))
+                         }, icon: Icon(Icons.delete_outline)),
                        ],
                      ),
                    ),
@@ -86,7 +80,7 @@ class _MainScreenState extends State<BasketScreen> {
            floatingActionButton: Padding(
              padding: const EdgeInsets.only(bottom: 50.0),
              child: FloatingActionButton.extended(
-               label: Text("Devam"),
+               label: Text("Devam  -  ${totalMoney(sepettekiYemeklerListesi)}₺"),
                backgroundColor: Colors.black,
                onPressed: (){
 
@@ -97,4 +91,12 @@ class _MainScreenState extends State<BasketScreen> {
 
     });
   }
+}
+
+totalMoney(List<SepettekiYemekler> yemekler) {
+  var total = 0;
+  for (var element in yemekler) {
+    total += int.parse(element.yemek_fiyat) * int.parse(element.yemek_siparis_adet);
+  }
+  return total;
 }

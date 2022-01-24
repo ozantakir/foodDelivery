@@ -1,28 +1,32 @@
-import 'dart:collection';
 import 'package:bitirme_odev/entity/sepet_cevap.dart';
 import 'package:bitirme_odev/entity/sepetteki_yemekler.dart';
 import 'package:bitirme_odev/entity/tum_yemekler_cevap.dart';
-import 'package:bitirme_odev/views/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bitirme_odev/entity/tum_yemekler.dart';
 
 class DaoRepository {
 
-  var refSignPerson = FirebaseDatabase.instance.reference().child("signed up people");
-  var users = FirebaseFirestore.instance.collection("users");
-
-  Future<void> registerPerson(String full_name) async {
-    return users.add({
-      "full_name": full_name
-    }).then((value){}).catchError((onError) => print(onError));
+  Future<void> registerPerson(String full_name,String mail) async {
+    var users = FirebaseFirestore.instance.collection("users").doc(mail);
+    var json = {
+      "full_name": full_name,
+      "phone": "",
+      "address":""
+    };
+    await users.set(json);
+  }
+  Future<void> registerInfo(String mail,String phone,String address,String name) async {
+    var users = FirebaseFirestore.instance.collection("users").doc(mail);
+    var json = {
+      "full_name": name,
+      "phone": phone,
+      "address":address
+    };
+    await users.set(json);
   }
 
-  Future<void> deleteMember(String person_id) async {
-    refSignPerson.child(person_id).remove();
-  }
 
   List<TumYemekler> parseYemeklerCevap(String cevap){
     return TumYemeklerCevap.fromJson(json.decode(cevap)).yemeklerListesi;
@@ -59,5 +63,7 @@ class DaoRepository {
     var answer = await http.post(url,body: data);
     return parseSepetCevap(answer.body);
   }
+
+
 
 }

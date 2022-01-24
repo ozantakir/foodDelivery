@@ -1,10 +1,10 @@
-import 'package:bitirme_odev/views/main_screens.dart';
-import 'package:bitirme_odev/views/login_page.dart';
-import 'package:bitirme_odev/views/signup_page.dart';
+import 'package:bitirme_odev/views/intro/login_page.dart';
+import 'package:bitirme_odev/views/intro/signup_page.dart';
+import 'package:bitirme_odev/views/order/main_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../size_configs.dart';
+import '../../size_configs.dart';
 
 class SignPage extends StatefulWidget {
   const SignPage({Key? key}) : super(key: key);

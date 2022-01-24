@@ -1,9 +1,10 @@
-import 'package:bitirme_odev/cubit/home_screen_cubit.dart';
+import 'package:bitirme_odev/cubit/order_cubits/home_screen_cubit.dart';
 import 'package:bitirme_odev/entity/tum_yemekler.dart';
-import 'package:bitirme_odev/views/food_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'food_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,30 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 20.0,right: 20),
-            child: TextField(
-              controller: tfSearch,
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                hintText: "Arama",
-                prefixIcon: const Icon(Icons.search,color: Colors.black,),
-                fillColor: Colors.white,
-                filled: true,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
-          backgroundColor: Colors.red,
-        ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("Menü"),
+        backgroundColor: Colors.red,
       ),
       body: BlocBuilder<HomeScreenCubit,List<TumYemekler>>(
           builder: (context,yemeklerListesi){
@@ -63,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           FoodDetails(yemek_resim_adi: yemek.yemek_resim_adi, name: yemek.yemek_adi, price: yemek.yemek_fiyat));
                     },
                     child: Card(
+                      elevation: 5,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                           side: BorderSide(width: 2,color: Colors.black)

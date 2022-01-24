@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../main.dart';
+import '../../main.dart';
+
 
 class OnboardingPageCubit extends Cubit<void>{
   OnboardingPageCubit():super(0);

@@ -1,8 +1,8 @@
 import 'package:bitirme_odev/app_styles.dart';
-import 'package:bitirme_odev/cubit/onboarding_page_cubit.dart';
+import 'package:bitirme_odev/cubit/intro_cubits/onboarding_page_cubit.dart';
 import 'package:bitirme_odev/entity/onboard_data.dart';
 import 'package:bitirme_odev/size_configs.dart';
-import 'package:bitirme_odev/views/sign_page.dart';
+import 'package:bitirme_odev/views/intro/sign_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +76,7 @@ class _OnboardPageState extends State<OnboardPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   TextButton(onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignPage()));
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignPage()));
                                   }, child: Text("Skip >>",style: TextStyle(color: Colors.white),)),
                                 ],
                               ),
@@ -112,7 +112,7 @@ class _OnboardPageState extends State<OnboardPage> {
                             SizedBox(
                               width: sizeH * 50,
                               child: ElevatedButton(onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignPage()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignPage()));
                               }, child: Text("Get Started",style: TextStyle(color: Colors.deepOrange),),style:
                                 ElevatedButton.styleFrom(
                                   primary: Colors.white,

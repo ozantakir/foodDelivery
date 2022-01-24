@@ -24,8 +24,6 @@ class BasketScreenCubit extends Cubit<List<SepettekiYemekler>> {
   Future<void> sonYemekSil(int sepet_yemek_id,String kullanici_adi) async {
     await basketRepo.yemekSil(sepet_yemek_id, kullanici_adi);
   }
-  Future<void> fiyatAl(int yemek_fiyat,int yemek_adet) async {
-    var total = 0;
-    total += yemek_fiyat * yemek_adet;
-  }
+
+
 }

@@ -8,8 +8,8 @@ class SignupPageCubit extends Cubit<void>{
 
   var signRepo = DaoRepository();
 
-  Future<void> register(String full_name) async {
-    await signRepo.registerPerson(full_name);
+  Future<void> register(String full_name,String mail) async {
+    await signRepo.registerPerson(full_name,mail);
   }
 
   Future signUp(String email,String password, context) async {

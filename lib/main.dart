@@ -1,16 +1,17 @@
-import 'package:bitirme_odev/cubit/basket_screen_cubit.dart';
-import 'package:bitirme_odev/cubit/food_details_cubit.dart';
-import 'package:bitirme_odev/cubit/home_screen_cubit.dart';
-import 'package:bitirme_odev/cubit/login_page_cubit.dart';
-import 'package:bitirme_odev/cubit/onboarding_page_cubit.dart';
-import 'package:bitirme_odev/cubit/profile_screen_cubit.dart';
-import 'package:bitirme_odev/cubit/signup_page_cubit.dart';
-import 'package:bitirme_odev/views/onboarding_page.dart';
-import 'package:bitirme_odev/views/sign_page.dart';
+import 'package:bitirme_odev/cubit/profile_cubits/profile_screen_cubit.dart';
+import 'package:bitirme_odev/views/intro/onboarding_page.dart';
+import 'package:bitirme_odev/views/intro/sign_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'cubit/intro_cubits/login_page_cubit.dart';
+import 'cubit/intro_cubits/onboarding_page_cubit.dart';
+import 'cubit/intro_cubits/signup_page_cubit.dart';
+import 'cubit/order_cubits/basket_screen_cubit.dart';
+import 'cubit/order_cubits/food_details_cubit.dart';
+import 'cubit/order_cubits/home_screen_cubit.dart';
 
 bool? seenOnboard;
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => OnboardingPageCubit()),
