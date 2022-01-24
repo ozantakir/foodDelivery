@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "302534234368",
+    "project_id": "flutter-bitirme",
+    "storage_bucket": "flutter-bitirme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302534234368:android:5a80ab1fd6951d79c223e5",
+        "android_client_info": {
+          "package_name": "com.example.bitirme_odev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302534234368-s9b8io07jpmh4noe4b2m1s5jim79673r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bitirme_odev",
+            "certificate_hash": "1c9fbc845068a1bfb8903f9e1388c42b098705f2"
+          }
+        },
+        {
+          "client_id": "302534234368-1ljo8beorp058259n5up3g54hcqgodn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjtyuWDCiAx_3JRpcIMgKE1nq3hJTvxdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302534234368-1ljo8beorp058259n5up3g54hcqgodn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
