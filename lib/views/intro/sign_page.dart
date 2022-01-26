@@ -4,6 +4,7 @@ import 'package:bitirme_odev/views/order/main_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../app_styles.dart';
 import '../../size_configs.dart';
 
 class SignPage extends StatefulWidget {
@@ -32,20 +33,20 @@ class _SignPageState extends State<SignPage> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(sizeV * 35),
                 child: AppBar(
-                  elevation: 5,
+                  elevation: 10,
                   backgroundColor: Colors.white,
-                  flexibleSpace: Image.asset("pics/logo.png"),
+                  flexibleSpace: Image.asset("pics/animation.gif"),
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(20)
+                          bottom: Radius.circular(30)
                       )
                   ),
-                  bottom: const TabBar(
+                  bottom: TabBar(
                     indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(width: 3.0,color: Colors.deepOrange),
+                        borderSide: BorderSide(width: 3.0,color: orange),
                         insets: EdgeInsets.symmetric(horizontal:20.0)
                     ),
-                    labelColor: Colors.black,
+                    labelColor: black,
                     labelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                     unselectedLabelColor: Colors.grey,
                     unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal,fontSize: 16),

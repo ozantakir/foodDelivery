@@ -10,4 +10,5 @@ class FoodDetailsCubit extends Cubit<void> {
       String yemek_siparis_adet,String kullanici_adi) async {
     await addRepo.sepetEkle(yemek_adi, yemek_resim_adi, yemek_fiyat, yemek_siparis_adet, kullanici_adi);
 }
+
 }

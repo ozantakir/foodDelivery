@@ -1,3 +1,4 @@
+import 'package:bitirme_odev/app_styles.dart';
 import 'package:bitirme_odev/views/order/basket_screen.dart';
 import 'package:bitirme_odev/views/order/home_screen.dart';
 import 'package:bitirme_odev/views/profile/profile_screen.dart';
@@ -27,9 +28,9 @@ class _MainScreensState extends State<MainScreens> {
       body: pageList[chosenIndex],
       bottomNavigationBar: CurvedNavigationBar(
         items: [
-          Icon(Icons.home,color: Colors.white,),
-          Icon(Icons.shopping_basket,color: Colors.white),
-          Icon(Icons.person,color: Colors.white)
+          Icon(Icons.home,color: white,),
+          Icon(Icons.shopping_basket,color: white),
+          Icon(Icons.person,color: white)
         ],
         onTap: (index){
           setState(() {
@@ -37,8 +38,8 @@ class _MainScreensState extends State<MainScreens> {
           });
         },
         height: 50,
-        color: Colors.red,
-        buttonBackgroundColor: Colors.black,
+        color: orange,
+        buttonBackgroundColor: orange,
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),

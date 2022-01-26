@@ -91,7 +91,9 @@ class _OnboardPageState extends State<OnboardPage> {
                                 ),
                               ),
                               Text(onboardingContents[index].title,style: onboardTitle,textAlign: TextAlign.center,),
-                              SizedBox(height: sizeV*40,child: AspectRatio(aspectRatio: 1 / 1,child: Image.asset(onboardingContents[index].image,fit: BoxFit.cover))),
+                              SizedBox(height: sizeV*40,child: AspectRatio(aspectRatio: 1 / 1,child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Image.asset(onboardingContents[index].image,fit: BoxFit.cover,)))),
                             ],
                           ),
                   )),

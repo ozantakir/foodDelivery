@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../app_styles.dart';
+
 
 
 class FoodDetails extends StatefulWidget {
@@ -28,13 +30,10 @@ class _FoodDetailsState extends State<FoodDetails> {
         shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20)
     ),
-    title: SizedBox(
-      height: 20,
-      child: Row(
-      children: [
-      IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.cancel_outlined),splashRadius: 20,),
-      ],
-      ),
+    title: Row(
+    children: [
+    IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.cancel_outlined,color: black,),splashRadius: 20,),
+    ],
     ),
     content: Column(
       mainAxisSize: MainAxisSize.min,
@@ -43,7 +42,7 @@ class _FoodDetailsState extends State<FoodDetails> {
             decoration: BoxDecoration(
                 border: Border.all(),
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.black
+                color: black
             ),
             height: 100,
             child: Image.network(
@@ -52,28 +51,40 @@ class _FoodDetailsState extends State<FoodDetails> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0,bottom: 10),
           child: Text("${widget.name}",
-              style: TextStyle(fontSize: 20, color: Colors.black)),
+              style: TextStyle(fontSize: 20, color: black)),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(onPressed: () {
-              if (siparisAdet > 1) {
+        SizedBox(height: 10,),
+        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        ,style: TextStyle(fontSize: 18,color: Colors.black45),textAlign: TextAlign.center,),
+        SizedBox(height: 10,),
+        Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: orange,width: 2)
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(onPressed: () {
+                if (siparisAdet > 1) {
+                  setState(() {
+                    siparisAdet -= 1;
+                  });
+                }
+              },
+                icon: Icon(Icons.indeterminate_check_box_sharp,color: orange,),
+                splashRadius: 20,),
+              Text("$siparisAdet",style: TextStyle(color: black,fontSize: 18),),
+              IconButton(onPressed: () {
                 setState(() {
-                  siparisAdet -= 1;
+                  siparisAdet += 1;
                 });
-              }
-            },
-              icon: Icon(Icons.indeterminate_check_box_sharp),
-              splashRadius: 20,),
-            Text("$siparisAdet"),
-            IconButton(onPressed: () {
-              setState(() {
-                siparisAdet += 1;
-              });
-            }, icon: Icon(Icons.add), splashRadius: 20,),
-          ],
+              }, icon: Icon(Icons.add), splashRadius: 20,color: orange,),
+            ],
+          ),
         ),
+        SizedBox(height: 15,),
         ElevatedButton(onPressed: () {
           context.read<FoodDetailsCubit>().sepetEkle(
               widget.name, widget.yemek_resim_adi, widget.price,
@@ -82,12 +93,12 @@ class _FoodDetailsState extends State<FoodDetails> {
         }, child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Sepete Ekle  -  "),
+            Text("Sepete Ekle  -  ",),
             Text("${int.parse(widget.price) * siparisAdet}₺",)
           ],
         ),
           style: ElevatedButton.styleFrom(
-            primary: Colors.black87
+            primary: black
           ),
         ),
 

@@ -13,16 +13,20 @@ class DaoRepository {
     var json = {
       "full_name": full_name,
       "phone": "",
-      "address":""
+      "address":"",
+      "city":"",
+      "district":""
     };
     await users.set(json);
   }
-  Future<void> registerInfo(String mail,String phone,String address,String name) async {
+  Future<void> registerInfo(String mail,String phone,String address,String name,String city,String district) async {
     var users = FirebaseFirestore.instance.collection("users").doc(mail);
     var json = {
       "full_name": name,
       "phone": phone,
-      "address":address
+      "address":address,
+      "city": city,
+      "district": district
     };
     await users.set(json);
   }
@@ -34,6 +38,7 @@ class DaoRepository {
 
   Future<List<TumYemekler>> tumYemekleriAl() async {
     var url = Uri.parse("http://kasimadalan.pe.hu/yemekler/tumYemekleriGetir.php");
+
     var cevap = await http.get(url);
     return parseYemeklerCevap(cevap.body);
   }
@@ -46,6 +51,8 @@ class DaoRepository {
     var cevap = await http.post(url,body: data);
     print(cevap.body);
   }
+
+
   
   Future<void> yemekSil(int sepet_yemek_id,String kullanici_adi) async {
     var url = Uri.parse("http://kasimadalan.pe.hu/yemekler/sepettenYemekSil.php");

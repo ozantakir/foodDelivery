@@ -13,8 +13,8 @@ class ProfileScreenCubit extends Cubit<void> {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<void> register(String mail,String phone,String address,String name) async {
-    await pRepo.registerInfo(mail, phone, address,name);
+  Future<void> register(String mail,String phone,String address,String name,String city,String district) async {
+    await pRepo.registerInfo(mail, phone, address,name,city,district);
   }
 
 

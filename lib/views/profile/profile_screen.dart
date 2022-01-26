@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../app_styles.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var tfAdress = TextEditingController();
   var tfMail = TextEditingController();
   var tfPhone = TextEditingController();
+  var tfIl = TextEditingController();
+  var tfIlce = TextEditingController();
 
   var users = FirebaseFirestore.instance.collection("users");
 
@@ -35,6 +39,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profil"),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30)
+            )
+        ),
         actions: [
           IconButton(onPressed: (){setState(() {
             edit = true;
@@ -50,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
           )
         ],
-        backgroundColor: Colors.red,
+        backgroundColor: orange,
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: users.doc(FirebaseAuth.instance.currentUser?.email).get(),
@@ -58,10 +67,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if(snapshot.connectionState == ConnectionState.done){
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
             tfName.text = data["full_name"];
-            if(data["phone"] != null && data["address"] != null){
-              tfPhone.text = data["phone"];
-              tfAdress.text = data["address"];
-            }
+            tfPhone.text = data["phone"];
+            tfAdress.text = data["address"];
+            tfIl.text = data["city"];
+            tfIlce.text = data["district"];
             if(mail != null){
               tfMail.text = mail!;
             }
@@ -70,7 +79,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 20,),
                     TextField(controller: tfName,style: TextStyle(fontSize: 20),enabled: false,
                       decoration: InputDecoration(
                         label: Text("Ad-Soyad"),
@@ -82,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(height: 20,),
                     TextField(controller: tfMail,style: TextStyle(fontSize: 20),enabled: false,
                       decoration: InputDecoration(
                           label: Text("E-mail"),
@@ -94,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(height: 20,),
                     TextField(controller: tfPhone,style: TextStyle(fontSize: 20),enabled: edit,
                       decoration: InputDecoration(
                         label: Text("Telefon numarası"),
@@ -107,22 +115,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 170,
+                          child: TextField(controller: tfIl,style: TextStyle(fontSize: 20),enabled: edit,
+                            decoration: InputDecoration(
+                              label: Text("İl"),
+                              labelStyle: TextStyle(fontSize: 20,color: Colors.deepOrange),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(width: 4,color: Colors.grey),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 170,
+                          child: TextField(controller: tfIlce,style: TextStyle(fontSize: 20),enabled: edit,
+                            decoration: InputDecoration(
+                              label: Text("İlçe"),
+                              labelStyle: TextStyle(fontSize: 20,color: Colors.deepOrange),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(width: 4,color: Colors.grey),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
                     TextField(controller: tfAdress,style: TextStyle(fontSize: 20),enabled: edit,
-                      minLines: 4,
-                      maxLines: 6,
+                      minLines: 2,
+                      maxLines: 3,
                       decoration: InputDecoration(
-                          label: Text("Adres"),
-                          labelStyle: TextStyle(fontSize: 20,color: Colors.deepOrange),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          prefixIcon: Icon(Icons.home_work,color: Colors.black,),
+                        label: Text("Adres"),
+                        labelStyle: TextStyle(fontSize: 20,color: Colors.deepOrange),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        prefixIcon: Icon(Icons.home_work,color: Colors.black,),
                         border: OutlineInputBorder(
                           borderSide: const BorderSide(width: 4,color: Colors.grey),
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
-                    SizedBox(height: 35,),
+                    SizedBox(height: 20,),
                     edit ? Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -136,7 +178,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),),
                         SizedBox(width: 20,),
                         ElevatedButton(onPressed: (){
-                          context.read<ProfileScreenCubit>().register(tfMail.text, tfPhone.text, tfAdress.text,tfName.text) ;
+                          context.read<ProfileScreenCubit>().register(tfMail.text, tfPhone.text, tfAdress.text,tfName.text,
+                          tfIl.text,tfIlce.text) ;
                           setState(() {
                             edit = false;
                           });
