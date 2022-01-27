@@ -3,7 +3,6 @@ import 'package:bitirme_odev/cubit/intro_cubits/onboarding_page_cubit.dart';
 import 'package:bitirme_odev/entity/onboard_data.dart';
 import 'package:bitirme_odev/size_configs.dart';
 import 'package:bitirme_odev/views/intro/sign_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +16,12 @@ class OnboardPage extends StatefulWidget {
 class _OnboardPageState extends State<OnboardPage> {
 
   int currentPage = 0;
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
 
   AnimatedContainer dotIndicator(index){
     return AnimatedContainer(
-      margin: EdgeInsets.only(right: 5),
-      duration: Duration(milliseconds: 400),
+      margin: const EdgeInsets.only(right: 5),
+      duration: const Duration(milliseconds: 400),
       height: 12,
       width: 12,
       decoration: BoxDecoration(
@@ -50,7 +49,7 @@ class _OnboardPageState extends State<OnboardPage> {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF470B).withOpacity(0.7),Color(0xFF470B).withOpacity(1)]
+          colors: [orange.withOpacity(0.7),orange.withOpacity(1)]
         )
       ),
       child: Scaffold(
@@ -76,8 +75,8 @@ class _OnboardPageState extends State<OnboardPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   TextButton(onPressed: (){
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignPage()));
-                                  }, child: Text("Skip >>",style: TextStyle(color: Colors.white),)),
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignPage()));
+                                  }, child: Text("Skip >>",style: TextStyle(color: white),)),
                                 ],
                               ),
                               SizedBox(
@@ -102,9 +101,9 @@ class _OnboardPageState extends State<OnboardPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: [BoxShadow(
-                        color: Color(0xFF470B).withOpacity(0.5),
-                        blurRadius: currentPage == onboardingContents.length - 1 ? 100 : 40.0,
-                        spreadRadius: currentPage == onboardingContents.length - 1 ? 100 : 40.0,
+                        color: orange.withOpacity(0.5),
+                        blurRadius: 40.0,
+                        spreadRadius: 40.0,
                       ),]
                     ),
                     child: Column(
@@ -114,10 +113,10 @@ class _OnboardPageState extends State<OnboardPage> {
                             SizedBox(
                               width: sizeH * 50,
                               child: ElevatedButton(onPressed: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignPage()));
-                              }, child: Text("Get Started",style: TextStyle(color: Colors.deepOrange),),style:
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignPage()));
+                              }, child: Text("Get Started",style: TextStyle(color: orange),),style:
                                 ElevatedButton.styleFrom(
-                                  primary: Colors.white,
+                                  primary: white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
                                   )

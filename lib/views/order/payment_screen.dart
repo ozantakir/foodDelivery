@@ -1,4 +1,5 @@
 import 'package:bitirme_odev/app_styles.dart';
+import 'package:bitirme_odev/views/order/order_coming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
@@ -39,7 +40,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ödeme"),
+        title: const Text("Ödeme"),
         backgroundColor: black,
       ),
       body: Column(
@@ -56,7 +57,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               showBackView: showBack,
               isHolderNameVisible: true,
               cardBgColor: black,
-              animationDuration: Duration(milliseconds: 800),
+              animationDuration: const Duration(milliseconds: 800),
               onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
             ),
           Expanded(
@@ -78,7 +79,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text("Siparişi Onayla  -  ${widget.totalPayment}"),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const OrderComing()));
+        },
         backgroundColor: black,
       ),
     );

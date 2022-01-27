@@ -3,10 +3,7 @@ import 'package:bitirme_odev/views/order/basket_screen.dart';
 import 'package:bitirme_odev/views/order/home_screen.dart';
 import 'package:bitirme_odev/views/profile/profile_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -18,7 +15,7 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
 
   int chosenIndex = 0;
-  var pageList = [HomeScreen(),BasketScreen(),ProfileScreen()];
+  var pageList = const [HomeScreen(),BasketScreen(),ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class _MainScreensState extends State<MainScreens> {
         buttonBackgroundColor: orange,
         backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: const Duration(milliseconds: 600),
       ),
     );
   }

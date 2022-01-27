@@ -1,18 +1,13 @@
-
 import 'package:bitirme_odev/cubit/order_cubits/food_details_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../app_styles.dart';
-
-
 
 class FoodDetails extends StatefulWidget {
   String yemek_resim_adi;
   String name;
   String price;
-
 
   FoodDetails({required this.yemek_resim_adi,required this.name,required this.price});
 
@@ -50,13 +45,13 @@ class _FoodDetailsState extends State<FoodDetails> {
                     .yemek_resim_adi}")),
         Padding(
           padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-          child: Text("${widget.name}",
-              style: TextStyle(fontSize: 20, color: black)),
+          child: Text(widget.name,
+              style: text),
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        ,style: TextStyle(fontSize: 18,color: Colors.black45),textAlign: TextAlign.center,),
-        SizedBox(height: 10,),
+        ,style: subText,textAlign: TextAlign.center,),
+        const SizedBox(height: 10,),
         Card(
           elevation: 10,
           shape: RoundedRectangleBorder(
@@ -75,16 +70,16 @@ class _FoodDetailsState extends State<FoodDetails> {
               },
                 icon: Icon(Icons.indeterminate_check_box_sharp,color: orange,),
                 splashRadius: 20,),
-              Text("$siparisAdet",style: TextStyle(color: black,fontSize: 18),),
+              Text("$siparisAdet",style: text,),
               IconButton(onPressed: () {
                 setState(() {
                   siparisAdet += 1;
                 });
-              }, icon: Icon(Icons.add), splashRadius: 20,color: orange,),
+              }, icon: const Icon(Icons.add), splashRadius: 20,color: orange,),
             ],
           ),
         ),
-        SizedBox(height: 15,),
+        const SizedBox(height: 15,),
         ElevatedButton(onPressed: () {
           context.read<FoodDetailsCubit>().sepetEkle(
               widget.name, widget.yemek_resim_adi, widget.price,
@@ -93,7 +88,7 @@ class _FoodDetailsState extends State<FoodDetails> {
         }, child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Sepete Ekle  -  ",),
+            const Text("Sepete Ekle  -  ",),
             Text("${int.parse(widget.price) * siparisAdet}₺",)
           ],
         ),
@@ -101,7 +96,6 @@ class _FoodDetailsState extends State<FoodDetails> {
             primary: black
           ),
         ),
-
       ],
     ));
   }

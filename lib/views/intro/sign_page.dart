@@ -3,7 +3,6 @@ import 'package:bitirme_odev/views/intro/signup_page.dart';
 import 'package:bitirme_odev/views/order/main_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../app_styles.dart';
 import '../../size_configs.dart';
 
@@ -25,7 +24,7 @@ class _SignPageState extends State<SignPage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context,snapshot){
         if(snapshot.hasData){
-          return MainScreens();
+          return const MainScreens();
         } else {
           return DefaultTabController(
             length: 2,
@@ -44,13 +43,13 @@ class _SignPageState extends State<SignPage> {
                   bottom: TabBar(
                     indicator: UnderlineTabIndicator(
                         borderSide: BorderSide(width: 3.0,color: orange),
-                        insets: EdgeInsets.symmetric(horizontal:20.0)
+                        insets: const EdgeInsets.symmetric(horizontal:20.0)
                     ),
                     labelColor: black,
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                     unselectedLabelColor: Colors.grey,
-                    unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal,fontSize: 16),
-                    tabs: [
+                    unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal,fontSize: 16),
+                    tabs: const [
                       Tab(text: "Login",),
                       Tab(text: "Sign-up",),
                     ],

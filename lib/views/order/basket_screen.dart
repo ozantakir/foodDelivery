@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:bitirme_odev/app_styles.dart';
 import 'package:bitirme_odev/cubit/order_cubits/basket_screen_cubit.dart';
 import 'package:bitirme_odev/entity/sepetteki_yemekler.dart';
 import 'package:bitirme_odev/views/order/payment_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +17,7 @@ class BasketScreen extends StatefulWidget {
 class _MainScreenState extends State<BasketScreen> {
   String kayitDegeri = "ozan_takir-${FirebaseAuth.instance.currentUser?.email}";
   bool opening = false;
+  String dropdownValue = "Ev";
 
   @override
   void initState() {
@@ -30,45 +29,65 @@ class _MainScreenState extends State<BasketScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<BasketScreenCubit, List<SepettekiYemekler>>(
         builder: (context, sepettekiYemeklerListesi) {
-      if (sepettekiYemeklerListesi.isNotEmpty) {
         return Scaffold(
           appBar: AppBar(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(30))),
             backgroundColor: orange,
             title: Row(
-              children: [Text("Sepetim"), Spacer(), Text("Adres : Ev")],
+              children: [const Text("Sepetim"), Spacer(),
+                const Text("Adres : ",style: TextStyle(fontSize: 20,color: Colors.white),),
+                DropdownButton<String>(
+                  style: const TextStyle(color: Colors.white,fontSize: 20),
+                  dropdownColor: yellow,
+                  underline: Container(
+                    height: 0,
+                  ),
+                  value: dropdownValue,
+                  items: <String>["Ev","İş"]
+                      .map<DropdownMenuItem<String>>((String value){
+                    return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                ),
+              ],
+
             ),
           ),
-          body: ListView.builder(
+          body: sepettekiYemeklerListesi.isNotEmpty ? ListView.builder(
               itemCount: sepettekiYemeklerListesi.length,
               itemBuilder: (context, index) {
-                if (index < sepettekiYemeklerListesi.length - 1) {
-                  if (sepettekiYemeklerListesi.length > 1) {
-                    if (sepettekiYemeklerListesi.last.yemek_adi ==
-                        sepettekiYemeklerListesi[index].yemek_adi) {
-                      int aNum = int.parse(
-                          sepettekiYemeklerListesi.last.yemek_siparis_adet);
 
-                      context.read<BasketScreenCubit>().yemekSil(
-                          int.parse(
-                              sepettekiYemeklerListesi.last.sepet_yemek_id),
-                          kayitDegeri);
+                 sepettekiYemeklerListesi
+                     .sort((a, b) => a.yemek_adi.compareTo(b.yemek_adi));
 
-                      addFood(context, sepettekiYemeklerListesi[index],
-                          kayitDegeri, aNum);
-                    }
-                  }
-                }
-                Timer(Duration(milliseconds: 800), () {
-                  setState(() {
-                    opening = true;
-                  });
-                });
+                 if(sepettekiYemeklerListesi.length > 1){
+                   if(index < sepettekiYemeklerListesi.length - 1){
+                     if(sepettekiYemeklerListesi[index].yemek_adi == sepettekiYemeklerListesi[index+1].yemek_adi){
+                      // print("aynı ürün geldi");
+                       int aNum = int.parse(sepettekiYemeklerListesi[index+1].yemek_siparis_adet);
 
-                // sepettekiYemeklerListesi
-                //     .sort((a, b) => a.yemek_adi.compareTo(b.yemek_adi));
+                       context.read<BasketScreenCubit>().yemekSil(
+                           int.parse(sepettekiYemeklerListesi[index+1].sepet_yemek_id), kayitDegeri);
+
+                       addFood(context, sepettekiYemeklerListesi[index], kayitDegeri, aNum);
+                     }
+                   }
+                 }
+
+                 Timer(const Duration(milliseconds: 900), () {
+                   setState(() {
+                     opening = true;
+                   });
+                 });
+
                 var sepettekiYemek = sepettekiYemeklerListesi[index];
                 return opening
                     ? Card(
@@ -88,18 +107,17 @@ class _MainScreenState extends State<BasketScreen> {
                                       style:
                                           TextStyle(fontSize: 20, color: black),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       "${int.parse(sepettekiYemek.yemek_fiyat) * int.parse(sepettekiYemek.yemek_siparis_adet)}₺",
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black54),
+                                      style: subText,
                                     ),
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Card(
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
@@ -110,12 +128,6 @@ class _MainScreenState extends State<BasketScreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        // context
-                                        //     .read<BasketScreenCubit>()
-                                        //     .yemekSil(
-                                        //         int.parse(sepettekiYemek
-                                        //             .sepet_yemek_id),
-                                        //         kayitDegeri);
                                         if (int.parse(sepettekiYemek
                                                 .yemek_siparis_adet) >
                                             1) {
@@ -133,15 +145,11 @@ class _MainScreenState extends State<BasketScreen> {
                                                       .yemek_resim_adi,
                                                   sepettekiYemek.yemek_fiyat,
                                                   (int.parse(sepettekiYemek
-                                                              .yemek_siparis_adet) -
-                                                          1)
-                                                      .toString(),
+                                                              .yemek_siparis_adet) - 1).toString(),
                                                   kayitDegeri);
                                         } else if (int.parse(sepettekiYemek
-                                                .yemek_siparis_adet) ==
-                                            1) {
-                                          if (sepettekiYemeklerListesi.length ==
-                                              1) {
+                                                .yemek_siparis_adet) == 1) {
+                                          if (sepettekiYemeklerListesi.length == 1) {
                                             context
                                                 .read<BasketScreenCubit>()
                                                 .yemekSil(
@@ -177,20 +185,8 @@ class _MainScreenState extends State<BasketScreen> {
                                         addFood(context, sepettekiYemek,
                                             kayitDegeri, 1);
 
-                                        // context.read<BasketScreenCubit>().yemekSil(
-                                        //     int.parse(sepettekiYemek.sepet_yemek_id),
-                                        //     kayitDegeri);
-                                        // context.read<BasketScreenCubit>().sepetEkle(
-                                        //     sepettekiYemek.yemek_adi,
-                                        //     sepettekiYemek.yemek_resim_adi,
-                                        //     sepettekiYemek.yemek_fiyat,
-                                        //     (int.parse(sepettekiYemek
-                                        //                 .yemek_siparis_adet) +
-                                        //             1)
-                                        //         .toString(),
-                                        //     kayitDegeri);
                                       },
-                                      icon: Icon(Icons.add),
+                                      icon: const Icon(Icons.add),
                                       splashRadius: 20,
                                       color: orange,
                                     ),
@@ -201,14 +197,14 @@ class _MainScreenState extends State<BasketScreen> {
                           ),
                         ),
                       )
-                    : Center();
-              }),
+                    : const Center();
+              }) : const Center(),
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 50.0),
             child: FloatingActionButton.extended(
               label: Text(
                 "Devam  -  ${totalMoney(sepettekiYemeklerListesi)}₺",
-                style: TextStyle(color: Color(0xffD7D7D7)),
+                style: TextStyle(color: white),
               ),
               backgroundColor: black,
               onPressed: () {
@@ -223,12 +219,8 @@ class _MainScreenState extends State<BasketScreen> {
             ),
           ),
         );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
       }
-    });
+    );
   }
 }
 

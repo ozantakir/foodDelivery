@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Image.asset("pics/google.png"),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
-                      fixedSize: Size(25,25),
+                      fixedSize: const Size(25,25),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
@@ -60,12 +60,11 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10,bottom: 15),
               child: TextField(
                 controller: tfName,
-                keyboardType: TextInputType.emailAddress,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   hintText: "Full Name",
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2,color: Colors.grey),
+                    borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -84,7 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 decoration: InputDecoration(
                   hintText: "E-mail",
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2,color: Colors.grey),
+                    borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -103,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 decoration: InputDecoration(
                   hintText: "Password",
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2,color: Colors.grey),
+                    borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -116,10 +115,10 @@ class _SignUpPageState extends State<SignUpPage> {
             ElevatedButton(onPressed: (){
               context.read<SignupPageCubit>().register(tfName.text,tfEmail.text);
               context.read<SignupPageCubit>().signUp(tfEmail.text, tfPassword.text,context);
-            }, child: Text("Sign-up"),
+            }, child: const Text("Sign-up"),
               style: ElevatedButton.styleFrom(
                 primary: orange,
-                minimumSize: Size(200, 40),
+                minimumSize: const Size(200, 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)
                 )

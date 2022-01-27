@@ -2,11 +2,58 @@ import 'package:bitirme_odev/entity/sepet_cevap.dart';
 import 'package:bitirme_odev/entity/sepetteki_yemekler.dart';
 import 'package:bitirme_odev/entity/tum_yemekler_cevap.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bitirme_odev/entity/tum_yemekler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class DaoRepository {
+
+  // Shared Pref
+
+  Future setSeenOnboard() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    seenOnboard = await sharedPreferences.setBool("seenOnboard", true);
+  }
+
+  // Firebase auth
+
+  Future login(String email,String password,context) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e){
+      var snackBar = SnackBar(content: Text(e.message!),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future resetPw(String email,context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e){
+      var snackBar = SnackBar(content: Text(e.message!),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future signUp(String email,String password, context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e){
+      var snackBar = SnackBar(content: Text(e.message!),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  // Firestore
 
   Future<void> registerPerson(String full_name,String mail) async {
     var users = FirebaseFirestore.instance.collection("users").doc(mail);
@@ -15,22 +62,25 @@ class DaoRepository {
       "phone": "",
       "address":"",
       "city":"",
-      "district":""
+      "district":"",
+      "title":""
     };
     await users.set(json);
   }
-  Future<void> registerInfo(String mail,String phone,String address,String name,String city,String district) async {
+  Future<void> registerInfo(String mail,String phone,String address,String name,String city,String district,String title) async {
     var users = FirebaseFirestore.instance.collection("users").doc(mail);
     var json = {
       "full_name": name,
       "phone": phone,
       "address":address,
       "city": city,
-      "district": district
+      "district": district,
+      "title": title
     };
     await users.set(json);
   }
 
+  // http
 
   List<TumYemekler> parseYemeklerCevap(String cevap){
     return TumYemeklerCevap.fromJson(json.decode(cevap)).yemeklerListesi;
@@ -51,8 +101,6 @@ class DaoRepository {
     var cevap = await http.post(url,body: data);
     print(cevap.body);
   }
-
-
   
   Future<void> yemekSil(int sepet_yemek_id,String kullanici_adi) async {
     var url = Uri.parse("http://kasimadalan.pe.hu/yemekler/sepettenYemekSil.php");
@@ -70,7 +118,6 @@ class DaoRepository {
     var answer = await http.post(url,body: data);
     return parseSepetCevap(answer.body);
   }
-
 
 
 }

@@ -1,7 +1,6 @@
 import 'package:bitirme_odev/cubit/intro_cubits/login_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../app_styles.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,13 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   var tfForgot = TextEditingController();
 
   @override
-  void dispose() {
-    tfMail.dispose();
-    tfPw.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Center(
@@ -36,17 +28,17 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 20.0,right: 20,top: 30),
               child: TextField(
                 controller: tfMail,
-                keyboardType: TextInputType.emailAddress,
                 textAlignVertical: TextAlignVertical.center,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: "E-mail",
-                  prefixIcon: const Icon(Icons.email_outlined,color: Colors.black,),
+                  prefixIcon: Icon(Icons.email_outlined,color: black,),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 2,color: Colors.grey),
+                    borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 2, color: Colors.deepOrange),
+                    borderSide: BorderSide(width: 2, color: orange),
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
@@ -57,13 +49,12 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 obscureText: true,
                 controller: tfPw,
-                keyboardType: TextInputType.emailAddress,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   hintText: "Password",
-                  prefixIcon: const Icon(Icons.password,color: Colors.black,),
+                  prefixIcon: Icon(Icons.password,color: black,),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 2,color: Colors.grey),
+                    borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -77,12 +68,9 @@ class _LoginPageState extends State<LoginPage> {
               setState(() {
                 forgotPw = false;
               });
-            }, child: Text("Forgot Password?",style: TextStyle(color: orange,fontWeight: FontWeight.bold),)),
+            }, child: Text("Forgot Password?",style: subTitle,)),
             ElevatedButton(onPressed: (){
               context.read<LoginPageCubit>().login(tfMail.text, tfPw.text,context);
-              // if(FirebaseAuth.instance.currentUser != null){
-              //   Navigator.pop(context);
-              // }
             }, child: const Text("Login"),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -94,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-              child: Text("Or",style: TextStyle(color: black,fontWeight: FontWeight.bold,fontSize: 18),),
+              child: Text("Or",style: text,),
             ),
             ElevatedButton.icon(
               icon: SizedBox(width: 20,height: 20,child: Image.asset("pics/google.png")),
@@ -117,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(children: [IconButton(onPressed: (){setState(() {
                 forgotPw = true;
-              });}, icon: Icon(Icons.arrow_back))],),
+              });}, icon: const Icon(Icons.arrow_back))],),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 50.0),
@@ -146,14 +134,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 25.0,right: 25),
-              child: Text("We will send you a mail to reset your new password.",style: TextStyle(color: black),),
+              padding: const EdgeInsets.only(left: 25.0,right: 25),
+              child: Text("We will send you a mail to reset your password.",style: TextStyle(color: black),),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: ElevatedButton(onPressed: (){
                 context.read<LoginPageCubit>().resetPw(tfForgot.text,context);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("E-mail send")));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("E-mail send")));
                 setState(() {
                   forgotPw = true;
                 });

@@ -1,15 +1,12 @@
+import 'package:bitirme_odev/repo/dao_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../main.dart';
-
 
 class OnboardingPageCubit extends Cubit<void>{
   OnboardingPageCubit():super(0);
 
+  var repo = DaoRepository();
 
   Future setSeenOnboard() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    seenOnboard = await sharedPreferences.setBool("seenOnboard", true);
+    await repo.setSeenOnboard();
   }
 }

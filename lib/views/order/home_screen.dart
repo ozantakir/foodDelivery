@@ -1,9 +1,7 @@
 import 'package:bitirme_odev/cubit/order_cubits/home_screen_cubit.dart';
 import 'package:bitirme_odev/entity/tum_yemekler.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../app_styles.dart';
 import 'food_details.dart';
 
@@ -27,19 +25,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
-        title: Text("Menü"),
+        title: const Text("Menü"),
         backgroundColor: orange,
       ),
       body: BlocBuilder<HomeScreenCubit, List<TumYemekler>>(
           builder: (context, yemeklerListesi) {
         if (yemeklerListesi.isNotEmpty) {
           return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
-              // childAspectRatio: 1 / 1,
               mainAxisSpacing: 10.0,
             ),
             itemCount: yemeklerListesi.length,
@@ -58,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(width: 2, color: black)),
+                      side: BorderSide(width: 2, color: yellow)),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 20.0, right: 20, top: 10, bottom: 10),
@@ -69,16 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.network(
                                 "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemek_resim_adi}")),
                         Text(
-                          "${yemek.yemek_adi}",
-                          style:
-                              TextStyle(fontSize: 20, color: Color(0xff272D2F)),
+                          yemek.yemek_adi,
+                          style: text,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           "${yemek.yemek_fiyat}₺",
-                          style: TextStyle(fontSize: 18, color: Colors.black54),
+                          style: subText,
                         )
                       ],
                     ),
@@ -88,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
