@@ -7,7 +7,7 @@ class Onboarding {
 }
 
 List<Onboarding> onboardingContents = [
-  Onboarding(title: "Look through our menu", image: "pics/onboard_one.png"),
-  Onboarding(title: "Decide what you want to eat", image: "pics/onboard_two.png"),
-  Onboarding(title: "And eat in no time", image: "pics/onboard_three.png"),
+  Onboarding(title: "Menümüze göz gezdirin", image: "pics/menu.gif"),
+  Onboarding(title: "Ne istediğinize karar verin", image: "pics/decide.gif"),
+  Onboarding(title: "Ve hemen size getirelim", image: "pics/eat.gif"),
 ];

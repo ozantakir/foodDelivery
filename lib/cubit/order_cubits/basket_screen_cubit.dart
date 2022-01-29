@@ -21,11 +21,10 @@ class BasketScreenCubit extends Cubit<List<SepettekiYemekler>> {
     await sepetiYukle(kullanici_adi);
   }
 
-  Future<void> sonYemekSil(int sepet_yemek_id,String kullanici_adi) async {
-    await basketRepo.yemekSil(sepet_yemek_id, kullanici_adi);
+  Future<void> sepetEkle(String yemek_adi,String yemek_resim_adi,String yemek_fiyat,
+      String yemek_siparis_adet,String kullanici_adi) async {
+    await basketRepo.sepetEkle(yemek_adi, yemek_resim_adi, yemek_fiyat, yemek_siparis_adet, kullanici_adi);
   }
-  Future<void> fiyatAl(int yemek_fiyat,int yemek_adet) async {
-    var total = 0;
-    total += yemek_fiyat * yemek_adet;
-  }
+
+
 }

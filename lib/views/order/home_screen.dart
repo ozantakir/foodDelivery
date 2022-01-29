@@ -1,0 +1,94 @@
+import 'package:bitirme_odev/cubit/order_cubits/home_screen_cubit.dart';
+import 'package:bitirme_odev/entity/tum_yemekler.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../app_styles.dart';
+import 'food_details.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var tfSearch = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeScreenCubit>().yemekleriYukle();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
+        title: const Text("Menü"),
+        backgroundColor: orange,
+      ),
+      body: BlocBuilder<HomeScreenCubit, List<TumYemekler>>(
+          builder: (context, yemeklerListesi) {
+        if (yemeklerListesi.isNotEmpty) {
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+            ),
+            itemCount: yemeklerListesi.length,
+            itemBuilder: (context, index) {
+              var yemek = yemeklerListesi[index];
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => FoodDetails(
+                          yemek_resim_adi: yemek.yemek_resim_adi,
+                          name: yemek.yemek_adi,
+                          price: yemek.yemek_fiyat));
+                },
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(width: 2, color: yellow)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20, top: 10, bottom: 10),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            height: 100,
+                            child: Image.network(
+                                "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemek_resim_adi}")),
+                        Text(
+                          yemek.yemek_adi,
+                          style: text,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "${yemek.yemek_fiyat}₺",
+                          style: subText,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
+    );
+  }
+}
