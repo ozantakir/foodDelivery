@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: tfPw,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: "Parola",
                   prefixIcon: Icon(Icons.password,color: black,),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 2,color: grey),
@@ -64,14 +64,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            TextButton(onPressed: (){
-              setState(() {
-                forgotPw = false;
-              });
-            }, child: Text("Forgot Password?",style: subTitle,)),
+            const SizedBox(height: 30,),
             ElevatedButton(onPressed: (){
               context.read<LoginPageCubit>().login(tfMail.text, tfPw.text,context);
-            }, child: const Text("Login"),
+            }, child: const Text("Giriş"),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -80,24 +76,13 @@ class _LoginPageState extends State<LoginPage> {
               minimumSize: const Size(200, 40)
             ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-              child: Text("Or",style: text,),
-            ),
-            ElevatedButton.icon(
-              icon: SizedBox(width: 20,height: 20,child: Image.asset("pics/google.png")),
-              onPressed: (){
+            const SizedBox(height: 30,),
+            TextButton(onPressed: (){
+              setState(() {
+                forgotPw = false;
+              });
+            }, child: Text("Parolanızı mı unuttunuz?",style: subTitle,)),
 
-              },
-              label: const Text("Log In with Google",style: TextStyle(color: Colors.black45),),
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.white,
-                  minimumSize: const Size(200, 40)
-              ),
-            ),
           ],
         ) : Column(
           children: [
@@ -110,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 50.0),
               child: Row(children : [
-                Text("Forgot\nPassword?",style: TextStyle(color: orange,fontSize: 35),)
+                Text("Parolanızı mı\nunuttunuz?",style: TextStyle(color: orange,fontSize: 35),)
               ]),
             ),
             Padding(
@@ -135,17 +120,17 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 25.0,right: 25),
-              child: Text("We will send you a mail to reset your password.",style: TextStyle(color: black),),
+              child: Text("Parolanızı sıfırlamak için bir mail göndereceğiz.",style: TextStyle(color: black),),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: ElevatedButton(onPressed: (){
                 context.read<LoginPageCubit>().resetPw(tfForgot.text,context);
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("E-mail send")));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("E-mail gönderildi")));
                 setState(() {
                   forgotPw = true;
                 });
-              }, child: const Text("Reset Password"),
+              }, child: const Text("Parolayı Sıfırla"),
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -155,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             )
-
           ],
         )
       ),

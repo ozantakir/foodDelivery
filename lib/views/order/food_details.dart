@@ -23,7 +23,8 @@ class _FoodDetailsState extends State<FoodDetails> {
   Widget build(BuildContext context) {
     return AlertDialog(
         shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
+        borderRadius: BorderRadius.circular(20),
+          side: BorderSide(width: 2,color: yellow)
     ),
     title: Row(
     children: [

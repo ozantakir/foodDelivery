@@ -76,7 +76,7 @@ class _OnboardPageState extends State<OnboardPage> {
                                 children: [
                                   TextButton(onPressed: (){
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignPage()));
-                                  }, child: Text("Skip >>",style: TextStyle(color: white),)),
+                                  }, child: Text("Geç >>",style: TextStyle(color: white),)),
                                 ],
                               ),
                               SizedBox(
@@ -114,7 +114,7 @@ class _OnboardPageState extends State<OnboardPage> {
                               width: sizeH * 50,
                               child: ElevatedButton(onPressed: (){
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignPage()));
-                              }, child: Text("Get Started",style: TextStyle(color: orange),),style:
+                              }, child: Text("Başlayalım",style: TextStyle(color: orange),),style:
                                 ElevatedButton.styleFrom(
                                   primary: white,
                                   shape: RoundedRectangleBorder(

@@ -50,8 +50,8 @@ class _SignPageState extends State<SignPage> {
                     unselectedLabelColor: Colors.grey,
                     unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal,fontSize: 16),
                     tabs: const [
-                      Tab(text: "Login",),
-                      Tab(text: "Sign-up",),
+                      Tab(text: "Giriş",),
+                      Tab(text: "Üye Ol",),
                     ],
                   ),
                 ),

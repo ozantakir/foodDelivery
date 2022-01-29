@@ -26,14 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   var users = FirebaseFirestore.instance.collection("users");
 
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
@@ -66,9 +61,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if(mail != null){
               tfMail.text = mail!;
             }
+
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(left: 20.0,right: 20,top: 30,bottom: 100),
                 child: Column(
                   children: [
                     TextField(controller: tfName,style: text,enabled: false,
@@ -105,6 +101,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderSide: BorderSide(width: 4,color: grey),
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2, color: orange),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20,),
@@ -123,11 +123,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderSide: BorderSide(width: 4,color: grey),
                                 borderRadius: BorderRadius.circular(15),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color: orange),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 130,
+                          width: 230,
                           child: TextField(controller: tfIl,style: text,enabled: edit,
                             decoration: InputDecoration(
                               label: const Text("İl"),
@@ -137,24 +141,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderSide: BorderSide(width: 4,color: grey),
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 130,
-                          child: TextField(controller: tfIlce,style: text,enabled: edit,
-                            decoration: InputDecoration(
-                              label: const Text("İlçe"),
-                              labelStyle: label,
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(width: 4,color: grey),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color: orange),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                             ),
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 20,),
+                    TextField(controller: tfIlce,style: text,enabled: edit,
+                      decoration: InputDecoration(
+                        label: const Text("İlçe"),
+                        labelStyle: label,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 4,color: grey),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2, color: orange),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 20,),
                     TextField(controller: tfAdress,style: text,enabled: edit,
@@ -169,9 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderSide: BorderSide(width: 4,color: grey),
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2, color: orange),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 30,),
                     edit ? Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

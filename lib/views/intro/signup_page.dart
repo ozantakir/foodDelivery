@@ -38,21 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 30.0,right: 30,top: 20),
               child: Row(
                 children: [
-                  Text("Register",style: TextStyle(color: orange,fontSize: 35)),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40.0),
-                    child: ElevatedButton(onPressed: (){},
-                        child: Image.asset("pics/google.png"),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      fixedSize: const Size(25,25),
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      )
-                    ),
-                    ),
-                  ),
+                  Text("Kayıt",style: TextStyle(color: orange,fontSize: 35)),
                 ],
               ),
             ),
@@ -62,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 controller: tfName,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                  hintText: "Full Name",
+                  hintText: "Ad Soyad",
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
@@ -100,7 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 controller: tfPassword,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: "Parola",
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 2,color: grey),
                     borderRadius: BorderRadius.circular(15),
@@ -115,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ElevatedButton(onPressed: (){
               context.read<SignupPageCubit>().register(tfName.text,tfEmail.text);
               context.read<SignupPageCubit>().signUp(tfEmail.text, tfPassword.text,context);
-            }, child: const Text("Sign-up"),
+            }, child: const Text("Kaydol"),
               style: ElevatedButton.styleFrom(
                 primary: orange,
                 minimumSize: const Size(200, 40),
@@ -126,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             TextButton(onPressed: (){
               DefaultTabController.of(context)?.animateTo(0);
-            }, child: Text("Already a member?",style: TextStyle(color: black),))
+            }, child: Text("Zaten üye misiniz?",style: TextStyle(color: black),))
           ],
         ),
       ),

@@ -71,7 +71,7 @@ class _MainScreenState extends State<BasketScreen> {
                  if(sepettekiYemeklerListesi.length > 1){
                    if(index < sepettekiYemeklerListesi.length - 1){
                      if(sepettekiYemeklerListesi[index].yemek_adi == sepettekiYemeklerListesi[index+1].yemek_adi){
-                      // print("aynı ürün geldi");
+
                        int aNum = int.parse(sepettekiYemeklerListesi[index+1].yemek_siparis_adet);
 
                        context.read<BasketScreenCubit>().yemekSil(
